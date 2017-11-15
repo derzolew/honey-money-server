@@ -1,15 +1,15 @@
 package com.honeymoney.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user", schema = "public")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     private Long id;
     private String login;
     private String password;
-    private String accessToken;
     private String role;
 
     @Id
@@ -39,15 +39,6 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Column(name = "access_token")
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 
     @Column(name = "role")

@@ -1,0 +1,17 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="fill-countries-table" author="m.vilcheuski">
+       <insert tableName="oauth_client_details" schemaName="oauth">
+           <column name="client_id">web</column>
+           <column name="resource_ids">oauth2-resource</column>
+           <column name="client_secret">$2a$10$3meLCdZrO5tt3tqIZ08s3OlyKxobv8E/AfRIz2.lSFeVQ3dG1RTtK</column>
+           <column name="scope">read,write,global</column>
+           <column name="authorized_grant_types">authorization_code,refresh_token,implicit,client_credentials,password</column>
+           <column name="access_token_validity">3000</column>
+           <column name="refresh_token_validity">2592000</column>
+       </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -3,23 +3,21 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="create-table-user" author="m.vilcheuski">
+    <changeSet id="create-table-user" author="chelsenok">
         <createTable tableName="user" schemaName="public">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
-
             <column name="login" type="varchar">
                 <constraints nullable="false" unique="true"/>
             </column>
-
             <column name="password" type="varchar">
                 <constraints nullable="false"/>
             </column>
-
             <column name="role" type="varchar">
                 <constraints nullable="false"/>
             </column>
+
         </createTable>
     </changeSet>
 
@@ -88,9 +86,5 @@
         </sql>
     </changeSet>
 
-    <changeSet id="add-access-token-table-user" author="m.vilcheuski">
-        <addColumn tableName="user" schemaName="public">
-            <column name="access_token" type="varchar"/>
-        </addColumn>
-    </changeSet>
+
 </databaseChangeLog>
