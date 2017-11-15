@@ -1,0 +1,96 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="create-table-user" author="m.vilcheuski">
+        <createTable tableName="user" schemaName="public">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+
+            <column name="login" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="password" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-oauth-data" author="m.vilcheuski">
+        <sql>
+            CREATE SCHEMA oauth;
+            CREATE TABLE oauth.oauth_access_token
+            (
+            token_id character varying(256) COLLATE pg_catalog."default",
+            token bytea,
+            authentication_id character varying(256) COLLATE pg_catalog."default",
+            user_name character varying(256) COLLATE pg_catalog."default",
+            client_id character varying(256) COLLATE pg_catalog."default",
+            authentication bytea,
+            refresh_token character varying(256) COLLATE pg_catalog."default"
+            )
+            WITH (
+            OIDS = FALSE
+            );
+            CREATE TABLE oauth.oauth_client_details
+            (
+            client_id character varying(256) COLLATE pg_catalog."default" NOT NULL,
+            resource_ids character varying(256) COLLATE pg_catalog."default",
+            client_secret character varying(256) COLLATE pg_catalog."default",
+            scope character varying(256) COLLATE pg_catalog."default",
+            authorized_grant_types character varying(256) COLLATE pg_catalog."default",
+            web_server_redirect_uri character varying(256) COLLATE pg_catalog."default",
+            authorities character varying(256) COLLATE pg_catalog."default",
+            access_token_validity integer,
+            refresh_token_validity integer,
+            additional_information character varying(4096) COLLATE pg_catalog."default",
+            autoapprove character varying(256) COLLATE pg_catalog."default",
+            CONSTRAINT oauth_client_details_pkey PRIMARY KEY (client_id)
+            )
+            WITH (
+            OIDS = FALSE
+            );
+            CREATE TABLE oauth.oauth_client_token
+            (
+            token_id character varying(256) COLLATE pg_catalog."default",
+            token bytea,
+            authentication_id character varying(256) COLLATE pg_catalog."default",
+            user_name character varying(256) COLLATE pg_catalog."default",
+            client_id character varying(256) COLLATE pg_catalog."default"
+            )
+            WITH (
+            OIDS = FALSE
+            );
+            CREATE TABLE oauth.oauth_code
+            (
+            code character varying(256) COLLATE pg_catalog."default",
+            authentication bytea
+            )
+            WITH (
+            OIDS = FALSE
+            );
+            CREATE TABLE oauth.oauth_refresh_token
+            (
+            token_id character varying(256) COLLATE pg_catalog."default",
+            token bytea,
+            authentication bytea
+            )
+            WITH (
+            OIDS = FALSE
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="add-access-token-table-user" author="m.vilcheuski">
+        <addColumn tableName="user" schemaName="public">
+            <column name="access_token" type="varchar"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
